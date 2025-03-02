@@ -1,6 +1,6 @@
 const CONFIG = {
   firebase: {
-    apiKey: process.env.FIREBASE_API_KEY || "AIzaSyDPwKAgzjXymEcWojrQqOGA3s1CeJAmq7o",
+    apiKey: "AIzaSyDPwKAgzjXymEcWojrQqOGA3s1CeJAmq7o",
     authDomain: "questnmarkwebsite.firebaseapp.com",
     projectId: "questnmarkwebsite",
     storageBucket: "questnmarkwebsite.firebasestorage.app",
@@ -10,6 +10,9 @@ const CONFIG = {
     databaseURL: "https://questnmarkwebsite-default-rtdb.firebaseio.com"
   }
 };
+
+// Make CONFIG available globally
+window.CONFIG = CONFIG;
 
 // Prevent modification of config
 Object.freeze(CONFIG);
