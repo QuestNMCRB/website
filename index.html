@@ -17,6 +17,13 @@
     <meta name="theme-color" content="#ffffff">
     
     <link rel="stylesheet" href="./css/styles.css">
+    <script>
+        function onRecaptchaLoad() {
+            window.recaptchaLoaded = true;
+            document.dispatchEvent(new Event('recaptchaLoaded'));
+        }
+    </script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf-aOcqAAAAAJgoqB0KzoPnnMJtfYrCsse453xV&onload=onRecaptchaLoad" async defer></script>
 </head>
 <body>
     <div class="container">
@@ -56,7 +63,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
     <script src="js/config.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js?render=6Lf-aOcqAAAAAJgoqB0KzoPnnMJtfYrCsse453xV"></script>
     <script src="js/main.js"></script>
 </body>
 </html>

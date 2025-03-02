@@ -39,8 +39,18 @@ class UserCounter {
     this.connectedRef = this.db.ref(".info/connected");
     this.presenceRef = this.db.ref("presence");
     
-    this.setupPresence();
-    this.trackActiveUsers();
+    this.waitForRecaptcha().then(() => {
+      this.setupPresence();
+      this.trackActiveUsers();
+    });
+  }
+
+  async waitForRecaptcha() {
+    if (!window.recaptchaLoaded) {
+      await new Promise(resolve => {
+        document.addEventListener('recaptchaLoaded', resolve, { once: true });
+      });
+    }
   }
 
   async setupPresence() {
@@ -71,6 +81,8 @@ class UserCounter {
 
   async verifyRecaptcha() {
     try {
+      // Wait for a small delay to ensure reCAPTCHA is fully initialized
+      await new Promise(resolve => setTimeout(resolve, 1000));
       return await grecaptcha.execute('6Lf-aOcqAAAAAJgoqB0KzoPnnMJtfYrCsse453xV', {action: 'presence'});
     } catch (error) {
       console.error('reCAPTCHA error:', error);
