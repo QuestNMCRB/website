@@ -23,10 +23,26 @@
                 <a class="button" href="https://www.twitch.tv/questnmark69" target="_blank">Watch me on Twitch</a>
                 <a class="button" href="https://legacy.curseforge.com/minecraft/modpacks/adventure-of-time" target="_blank">my cool mod</a>
             </div>
+            <p id="active-users">Active users: Loading...</p>
         </main>
         <footer>
             <p>&copy; 2025 QuestNMC_RB. All rights reserved.</p>
         </footer>
     </div>
+    <script>
+        async function fetchActiveUsers() {
+            try {
+                const response = await fetch('https://api.example.com/active-users'); // Replace with your actual API endpoint
+                const data = await response.json();
+                document.getElementById('active-users').textContent = `Active users: ${data.activeUsers}`;
+            } catch (error) {
+                console.error('Error fetching active users:', error);
+                document.getElementById('active-users').textContent = 'Active users: Error loading data';
+            }
+        }
+
+        fetchActiveUsers();
+        setInterval(fetchActiveUsers, 60000); // Refresh every 60 seconds
+    </script>
 </body>
 </html>
