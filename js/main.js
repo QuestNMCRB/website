@@ -55,7 +55,6 @@ class UserCounter {
 
   async setupPresence() {
     try {
-      // Verify user with reCAPTCHA before setting presence
       const token = await this.verifyRecaptcha();
       if (!token) {
         console.error('reCAPTCHA verification failed');
@@ -64,18 +63,31 @@ class UserCounter {
       }
 
       // Generate a random user ID for this session
-      this.userId = Math.random().toString(36).substring(2);
+      this.userId = `user_${Math.random().toString(36).substring(2)}`;
 
       this.connectedRef.on("value", (snap) => {
         if (snap.val() === true) {
           const userRef = this.presenceRef.child(this.userId);
-          userRef.onDisconnect().remove();
-          userRef.set(true);
+          
+          // First remove any existing presence
+          userRef.remove()
+            .then(() => {
+              // Set up disconnect cleanup
+              userRef.onDisconnect().remove();
+              // Set presence
+              return userRef.set(true);
+            })
+            .catch(error => {
+              console.error('Presence error:', error);
+              if (error.code === 'PERMISSION_DENIED') {
+                this.updateDisplay('Access restricted');
+              }
+            });
         }
       });
     } catch (error) {
       console.error('Setup presence error:', error);
-      this.updateDisplay('Verification error');
+      this.updateDisplay('Connection error');
     }
   }
 
@@ -92,8 +104,17 @@ class UserCounter {
 
   trackActiveUsers() {
     this.presenceRef.on("value", (snap) => {
-      const count = snap.numChildren();
-      this.updateDisplay(count);
+      if (snap.exists()) {
+        const count = snap.numChildren();
+        this.updateDisplay(count);
+      } else {
+        this.updateDisplay(0);
+      }
+    }, (error) => {
+      console.error('Error tracking users:', error);
+      if (error.code === 'PERMISSION_DENIED') {
+        this.updateDisplay('Access restricted');
+      }
     });
   }
 
