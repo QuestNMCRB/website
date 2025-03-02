@@ -40,7 +40,7 @@ main p {
 
 .links .discord-button {
     background-image: url('https://forum.overdosed.net/uploads/monthly_2020_03/fb0f017e191bc307d99055cae13a9ec1.gif.5e7c9ab0b2dc060a62d22a834a9e961d.gif'); /* Add your GIF URL here */
-    background-size: 100%;
+    background-size: 300%;
     background-repeat: repeat;
     background-position: center;
 }
