@@ -43,6 +43,11 @@ class UserCounter {
       this.setupPresence();
       this.trackActiveUsers();
     });
+
+    // Log page view
+    if (window.gtag) {
+      gtag('event', 'page_view');
+    }
   }
 
   async waitForRecaptcha() {
@@ -57,9 +62,17 @@ class UserCounter {
     try {
       const token = await this.verifyRecaptcha();
       if (!token) {
-        console.error('reCAPTCHA verification failed');
+        // Log verification failure
+        if (window.gtag) {
+          gtag('event', 'recaptcha_failed');
+        }
         this.updateDisplay('Verification failed');
         return;
+      }
+
+      // Log successful verification
+      if (window.gtag) {
+        gtag('event', 'user_verified');
       }
 
       // Generate a random user ID for this session
@@ -86,6 +99,13 @@ class UserCounter {
         }
       });
     } catch (error) {
+      // Log errors
+      if (window.gtag) {
+        gtag('event', 'error', {
+          'error_type': 'presence_setup',
+          'error_message': error.message
+        });
+      }
       console.error('Setup presence error:', error);
       this.updateDisplay('Connection error');
     }
@@ -106,6 +126,12 @@ class UserCounter {
     this.presenceRef.on("value", (snap) => {
       if (snap.exists()) {
         const count = snap.numChildren();
+        // Log user count changes
+        if (window.gtag) {
+          gtag('event', 'active_users', {
+            'count': count
+          });
+        }
         this.updateDisplay(count);
       } else {
         this.updateDisplay(0);
