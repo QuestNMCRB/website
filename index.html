@@ -2,47 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
+    <meta name="description" content="Welcome to QuestNMC_RB's official website">
     <title>QuestNMC_RB - Welcome</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <script src="https://www.google.com/recaptcha/api.js?render=6Lf-aOcqAAAAAJgoqB0KzoPnnMJtfYrCsse453xV"></script>
 </head>
 <body>
     <div class="container">
-        <header>
-            <h1>Welcome to my website</h1>
+        <header class="header">
+            <h1 class="header__title">Welcome to my website</h1>
         </header>
-        <main>
-            <p>Check out my content and join the community!</p>
-            <div class="links">
-                <a class="button" href="https://www.youtube.com/@QuestNMC_RB" target="_blank">Visit my YouTube Channel</a>
-                <a class="button discord-button" href="https://discord.gg/GytnX9vu" target="_blank"></a>
-                <a class="button" href="https://questnmark.com/games/click/" target="_blank">Play My Game "Click"</a>
-                <a class="button" href="https://www.twitch.tv/questnmark69" target="_blank">Watch me on Twitch</a>
-                <a class="button" href="https://legacy.curseforge.com/minecraft/modpacks/adventure-of-time" target="_blank">my cool mod</a>
-            </div>
-            <p id="active-users">Active users: Loading...</p>
+        
+        <main class="main">
+            <p class="main__text">Check out my content and join the community!</p>
+            
+            <nav class="button-container">
+                <a class="button" href="https://www.youtube.com/@QuestNMC_RB" target="_blank" rel="noopener">
+                    YouTube Channel
+                </a>
+                <a class="button button--discord" href="https://discord.gg/GytnX9vu" target="_blank" rel="noopener">
+                    
+                </a>
+                <a class="button" href="https://questnmark.com/games/click/" target="_blank" rel="noopener">
+                    Play "Click"
+                </a>
+                <a class="button" href="https://www.twitch.tv/questnmark69" target="_blank" rel="noopener">
+                    Twitch Channel
+                </a>
+                <a class="button" href="https://legacy.curseforge.com/minecraft/modpacks/adventure-of-time" target="_blank" rel="noopener">
+                    Adventure of Time Mod
+                </a>
+            </nav>
+            
+            <p id="active-users" class="users-count">Active users: Loading...</p>
         </main>
-        <footer>
+        
+        <footer class="footer">
             <p>&copy; 2025 QuestNMC_RB. All rights reserved.</p>
         </footer>
     </div>
-    <script>
-        async function fetchActiveUsers() {
-            try {
-                const response = await fetch('http://localhost:3000/api/active-users'); // Ensure this URL is correct
-                const data = await response.json();
-                document.getElementById('active-users').textContent = `Active users: ${data.activeUsers}`;
-            } catch (error) {
-                console.error('Error fetching active users:', error);
-                document.getElementById('active-users').textContent = 'Active users: Error loading data';
-            }
-        }
-
-        fetchActiveUsers();
-        setInterval(fetchActiveUsers, 60000); // Refresh every 60 seconds
-    </script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-check-compat.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
