@@ -1,7 +1,9 @@
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background: linear-gradient(to right, rgba(255, 126, 95, 0.7), rgba(254, 180, 123, 0.7)), url('https://piskel-imgstore-b.appspot.com/img/657fa570-f774-11ef-bf3c-d7cd4e3c9eb6.gif');
+    background-attachment: fixed;
+    background-size: cover;
     color: #333;
 }
 
@@ -17,7 +19,7 @@ header h1 {
 
 main p {
     font-size: 1.2em;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
 
 .links .button {
