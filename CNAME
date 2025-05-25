@@ -1,1 +1,6 @@
 questnmark.com
+
+write clean, modern, elegant and easy to maintain code that follows best practices.
+
+
+fix the "active users" component. you can completely rewrite it as needed, the goal is to make sure it shows all the currently active users on the website. and it should work on any deployment, not just localhost. write clean, modern, elegant and easy to maintain code that follows best practices.
